@@ -1,11 +1,12 @@
 {
-  "name": "ngImageEditor",
-  "version": "0.2.1",
+  "name": "sbImageEditor",
+  "version": "0.2.2",
   "authors": [
-    "SparrowJang <sparrow.jang@gmail.com>"
+    "SparrowJang <sparrow.jang@gmail.com>",
+    "Dustin Goodman <dustin.s.goodman@gmail.com"
   ],
-  "description": "This is a image editor for angular.It can cut image.",
-  "main": "dist/ngImageEditor.js",
+  "description": "An AngularJS directive that allows you to crop images.",
+  "main": "dist/sbImageEditor.js",
   "keywords": [
     "image",
     "head",
@@ -13,7 +14,7 @@
     "capture"
   ],
   "dependencies":{
-    "angular": "~1.4.1"
+    "angular": "^1.2.x"
   },
   "license": "MIT",
   "ignore": [
