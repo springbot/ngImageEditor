@@ -1,8 +1,8 @@
 {
-  "name": "ng-image-editor",
-  "version": "0.2.1",
+  "name": "sb-image-editor",
+  "version": "0.2.2",
   "description": "This is a image editor for angular.It can cut image.",
-  "main": "dist/ngImageEditor",
+  "main": "dist/sbImageEditor",
   "keywords": [
     "image",
     "head",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/SparrowJang/ngImageEditor"
+    "url": "https://github.com/springbot/ngImageEditor"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

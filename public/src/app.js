@@ -1,3 +1,2 @@
-
-var app = angular.module( 'ngImageEditor', [] );
+  var app = angular.module('sbImageEditor', []);
 
