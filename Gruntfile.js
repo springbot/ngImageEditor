@@ -29,6 +29,7 @@ module.exports = function (grunt) {
           '<%= src %>/app.js',
           '<%= src %>/Overlay.js',
           '<%= src %>/sbImageEditor.js',
+          '<%= src %>/sbImageSelected.js',
           '<%= src %>/outro.js'
         ],
         dest: 'dist/sbImageEditor.js'
