@@ -155,7 +155,7 @@ app.directive( 'ngImageEditor', ['$q', '$document', function( $q, $document ){
                 lastTop, lastLeft, lastHeight, lastWidth;
 
             var fixAspect = function(){
-                if(angular.isDefined($scope.aspectRatio)){
+                if(angular.isDefined($scope.aspectRatio) && $scope.aspectRatio !== ''){
                     var changeInX = x < 0 ? x * -1 : x;
                     var changeInY = y < 0 ? y * -1 : y;
                     if(changeInX > changeInY){
@@ -261,7 +261,7 @@ app.directive( 'ngImageEditor', ['$q', '$document', function( $q, $document ){
             var newWidth = width <= maxX ? (width < 0 ? 0 : width) : maxX,
                 newHeight = height <= maxY ? (height < 0 ? 0 : height) : maxY;
 
-            if (angular.isDefined($scope.aspectRatio)) {
+            if (angular.isDefined($scope.aspectRatio) && $scope.aspectRatio !== '') {
 
                 var aspectRatio = parseInt($scope.aspectRatio.split(':')[0])/
                                   parseInt($scope.aspectRatio.split(':')[1]);
