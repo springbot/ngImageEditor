@@ -28,69 +28,70 @@
        img-src="imgSrc"
        sb-image-editor="imageEditor"
        enabled-resize-selector="enabledResizeSelector"
-       aspect-ratio="{{aspectRatio}}"></div>
-    <img class="offset-1" ng-src="{{selectedBlock}}" alt="">
-    <div class="clear"></div>
-    <br>
-    top: <input type="number" ng-model="selected.top">
-    <br>
-    left: <input type="number" ng-model="selected.left">
-    <br>
-    width: <input type="number" ng-model="selected.width">
-    <br>
-    height: <input type="number" ng-model="selected.height">
-    <br>
-    aspect-ratio: <input type="number" ng-model="aspectRatioX" style="width:40px" ng-change="updateAspectRatio()"> : <input type="number" ng-model="aspectRatioY" style="width:40px" ng-change="updateAspectRatio()">
-    <br>
+       aspect-ratio="{{aspectRatio}}">
+  </div>
+  <img class="offset-1" ng-src="{{selectedBlock}}" alt="">
+  <div class="clear"></div>
+  <br>
+  top: <input type="number" ng-model="selected.top">
+  <br>
+  left: <input type="number" ng-model="selected.left">
+  <br>
+  width: <input type="number" ng-model="selected.width">
+  <br>
+  height: <input type="number" ng-model="selected.height">
+  <br>
+  aspect-ratio: <input type="number" ng-model="aspectRatioX" style="width:40px" ng-change="updateAspectRatio()"> : <input type="number" ng-model="aspectRatioY" style="width:40px" ng-change="updateAspectRatio()">
+  <br>
 
-    <button type="button" ng-click="capture()" ng-disabled="!enabled">
-      capture
-    </button>
+  <button type="button" ng-click="capture()" ng-disabled="!enabled">
+    capture
+  </button>
 
-    <script type="text/javascript" src="/angular/angular.min.js"></script>
-    <script type="text/javascript" src="src/app.js"></script>
-    <script type="text/javascript" src="src/Overlay.js"></script>
-    <script type="text/javascript" src="src/sbImageEditor.js"></script>
-    <script type="text/javascript" src="src/sbImageSelected.js"></script>
-    <script type="text/javascript">
-      angular
-        .module('demo', ['sbImageEditor'])
-        .controller('testCtrl', testCtrl);
+  <script type="text/javascript" src="/angular/angular.min.js"></script>
+  <script type="text/javascript" src="src/app.js"></script>
+  <script type="text/javascript" src="src/Overlay.js"></script>
+  <script type="text/javascript" src="src/sbImageEditor.js"></script>
+  <script type="text/javascript" src="src/sbImageSelected.js"></script>
+  <script type="text/javascript">
+    angular
+      .module('demo', ['sbImageEditor'])
+      .controller('testCtrl', testCtrl);
 
-      testCtrl.$inject = ['$scope'];
-      function testCtrl($scope) {
-        $scope.enabledResizeSelector = true;
-        $scope.imgSrc= 'images/head.jpeg';
-        $scope.selected = {
-          width: 50,
-          height: 50,
-          top: 0,
-          left: 0
-        };
-        $scope.aspectRatioX = 2;
-        $scope.aspectRatioY = 2;
+    testCtrl.$inject = ['$scope'];
+    function testCtrl($scope) {
+      $scope.enabledResizeSelector = true;
+      $scope.imgSrc= 'images/head.jpeg';
+      $scope.selected = {
+        width: 50,
+        height: 50,
+        top: 0,
+        left: 0
+      };
+      $scope.aspectRatioX = 2;
+      $scope.aspectRatioY = 2;
 
-        var clear = $scope.$watch('imageEditor', function (imageEditor) {
-          if (imageEditor) {
-            clear();
-            $scope.enabled = true;
-          }
-        });
+      var clear = $scope.$watch('imageEditor', function (imageEditor) {
+        if (imageEditor) {
+          clear();
+          $scope.enabled = true;
+        }
+      });
 
-        $scope.capture = function () {
-          $scope.selectedBlock = $scope.imageEditor.toDataURL();
-        };
+      $scope.capture = function () {
+        $scope.selectedBlock = $scope.imageEditor.toDataURL();
+      };
 
-        $scope.onImageChange = function (size) {
-          console.log('img change width:' + size.width + ' height:' + size.height);
-        };
+      $scope.onImageChange = function (size) {
+        console.log('img change width:' + size.width + ' height:' + size.height);
+      };
 
-        $scope.updateAspectRatio = function () {
-          $scope.aspectRatio = $scope.aspectRatioX + ':' + $scope.aspectRatioY;
-        };
+      $scope.updateAspectRatio = function () {
+        $scope.aspectRatio = $scope.aspectRatioX + ':' + $scope.aspectRatioY;
+      };
 
-        $scope.updateAspectRatio();
-      }
+      $scope.updateAspectRatio();
+    }
 	</script>
 </body>
 </html>

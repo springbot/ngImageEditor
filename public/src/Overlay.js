@@ -62,8 +62,8 @@
   };
 
   Overlay.prototype.refreshAndRender = function(img, selected, imageSize) {
-   this.refresh();
-   this.render( img, selected, imageSize );
+    this.refresh();
+    this.render(img, selected, imageSize);
   };
 
   Overlay.prototype.toDataURL = function (type, selected) {
@@ -75,5 +75,5 @@
     copyCanvas.height = selected.height;
     ctx.drawImage(canvas, selected.left, selected.top, selected.width, selected.height, 0, 0, selected.width, selected.height);
 
-    return copyCanvas.toDataURL( type );
+    return copyCanvas.toDataURL(type);
   };

@@ -68,8 +68,8 @@
   };
 
   Overlay.prototype.refreshAndRender = function(img, selected, imageSize) {
-   this.refresh();
-   this.render( img, selected, imageSize );
+    this.refresh();
+    this.render(img, selected, imageSize);
   };
 
   Overlay.prototype.toDataURL = function (type, selected) {
@@ -81,7 +81,7 @@
     copyCanvas.height = selected.height;
     ctx.drawImage(canvas, selected.left, selected.top, selected.width, selected.height, 0, 0, selected.width, selected.height);
 
-    return copyCanvas.toDataURL( type );
+    return copyCanvas.toDataURL(type);
   };
 
   app.directive('sbImageEditor', sbImageEditor);
@@ -97,11 +97,11 @@
         selected: "=",
         aspectRatio: "@"
       },
-      template:'<div ng-mouseup="cancel( $event )" unselectable="on">' +
-                 '<img unselectable="on" style="opacity:0;user-drag: none;width:100%;height:100%;" crossorigin="Anonymous" ng-src="{{imgSrc}}" ng-mousedown="$event.preventDefault()" />' +
-                 '<canvas width="100%" height="100%" style="position:absolute;top:0px;left:0px;"></canvas>' +
-                 '<div sb-image-selected></div>' +
-               '</div>',
+      template: '<div ng-mouseup="cancel( $event )" unselectable="on">' +
+                  '<img unselectable="on" style="opacity:0;user-drag: none;width:100%;height:100%;" crossorigin="Anonymous" ng-src="{{imgSrc}}" ng-mousedown="$event.preventDefault()" />' +
+                  '<canvas width="100%" height="100%" style="position:absolute;top:0px;left:0px;"></canvas>' +
+                  '<div sb-image-selected></div>' +
+                '</div>',
       controller: sbImageEditorCtrl
     };
 
@@ -121,37 +121,31 @@
       img = $element.find('img')[0];
       $body = angular.element(document.body);
 
-      watcher = {
-        imgSrc: function (src) {
-          getImageSize(src).then(function (size) {
-            imgSize = size;
-            overlay.refreshAndRender(img, $scope.selected, imgSize);
-            $scope.onImgChange({ imgSize: imgSize });
-          });
-        },
-        selected: function (selected) {
-          if ($scope.dragEvent == null && imgSize) {
-            overlay.refreshAndRender(img, selected, imgSize);
-          }
-        },
-        aspectRatio: function () {
-          var selected = $scope.selected;
-          $scope.resizeSelected(selected.top, selected.left, selected.width, selected.height);
-        }
+      $scope.move = move;
+      $scope.onResizeSelected = onResizeSelected;
+      $scope.resizeSelected = resizeSelected;
+      $scope.cancel = cancel;
+      $scope.sbImageEditor = {
+        toDataURL: _toDataURL,
+        refresh: _refresh
       };
 
-      $scope.$watch('imgSrc', watcher.imgSrc);
-      $scope.$watch('aspectRatio', watcher.aspectRatio);
-      $scope.$watchCollection('selected', watcher.selected);
+      $scope.$watch('imgSrc', function (src) {
+        _getImageSize(src).then(function (size) {
+          imgSize = size;
+          overlay.refreshAndRender(img, $scope.selected, imgSize);
+          $scope.onImgChange({ imgSize: imgSize });
+        });
+      });
 
-      angular.extend($scope, {
-        move: move,
-        onResizeSelected: onResizeSelected,
-        resizeSelected: resizeSelected,
-        cancel: cancel,
-        sbImageEditor: {
-          toDataURL: _toDataURL,
-          refresh: _refresh
+      $scope.$watch('aspectRatio', function () {
+        var selected = $scope.selected;
+        $scope.resizeSelected(selected.top, selected.left, selected.width, selected.height);
+      });
+
+      $scope.$watchCollection('selected', function (selected) {
+        if ($scope.dragEvent == null && imgSize) {
+          overlay.refreshAndRender(img, selected, imgSize);
         }
       });
 
@@ -357,7 +351,7 @@
         $scope.resizeStartEvent = null;
       }
 
-      function getImageSize(currentImg) {
+      function _getImageSize(currentImg) {
         var img = new Image(),
             div = document.createElement('div'),
             deferred = $q.defer(),
