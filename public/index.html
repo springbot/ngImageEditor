@@ -27,7 +27,7 @@
        selected="selected"
        img-src="imgSrc"
        sb-image-editor="imageEditor"
-       enabled-resize-selector="enabledResizeSelector"
+       enabled-resize-selector="true"
        aspect-ratio="{{aspectRatio}}">
   </div>
   <img class="offset-1" ng-src="{{selectedBlock}}" alt="">
@@ -60,8 +60,7 @@
 
     testCtrl.$inject = ['$scope'];
     function testCtrl($scope) {
-      $scope.enabledResizeSelector = true;
-      $scope.imgSrc= 'images/head.jpeg';
+      $scope.imgSrc = 'images/head.jpeg';
       $scope.selected = {
         width: 50,
         height: 50,
@@ -71,6 +70,12 @@
       $scope.aspectRatioX = 2;
       $scope.aspectRatioY = 2;
 
+      $scope.capture = capture;
+      $scope.onImageChange = onImageChange;
+      $scope.updateAspectRatio = updateAspectRatio;
+
+      $scope.updateAspectRatio();
+
       var clear = $scope.$watch('imageEditor', function (imageEditor) {
         if (imageEditor) {
           clear();
@@ -78,19 +83,21 @@
         }
       });
 
-      $scope.capture = function () {
+      function capture() {
         $scope.selectedBlock = $scope.imageEditor.toDataURL();
-      };
+      }
 
-      $scope.onImageChange = function (size) {
+      function onImageChange(size) {
         console.log('img change width:' + size.width + ' height:' + size.height);
-      };
+      }
 
-      $scope.updateAspectRatio = function () {
-        $scope.aspectRatio = $scope.aspectRatioX + ':' + $scope.aspectRatioY;
-      };
-
-      $scope.updateAspectRatio();
+      function updateAspectRatio() {
+        if (!!$scope.aspectRatioX && !!$scope.aspectRatioY) {
+          $scope.aspectRatio = $scope.aspectRatioX + ':' + $scope.aspectRatioY;
+        } else {
+          $scope.aspectRatio = undefined;
+        }
+      }
     }
 	</script>
 </body>
