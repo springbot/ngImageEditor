@@ -134,7 +134,7 @@
         _getImageSize(src).then(function (size) {
           imgSize = size;
           overlay.refreshAndRender(img, $scope.selected, imgSize);
-          $scope.onImgChange({ imgSize: imgSize });
+          $scope.onImgChange()(imgSize);
         });
       });
 
