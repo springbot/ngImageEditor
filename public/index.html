@@ -23,7 +23,7 @@
 </head>
 <body ng-controller="testCtrl">
 	<div class="ng-image-editor"
-       on-img-change="onImageChange(imgSize)"
+       on-img-change="onImageChange"
        selected="selected"
        img-src="imgSrc"
        sb-image-editor="imageEditor"
@@ -65,7 +65,8 @@
         width: 50,
         height: 50,
         top: 0,
-        left: 0
+        left: 0,
+        raw: true
       };
       $scope.aspectRatioX = 2;
       $scope.aspectRatioY = 2;
