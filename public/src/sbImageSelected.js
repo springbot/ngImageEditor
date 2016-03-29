@@ -21,14 +21,14 @@
 
     linkFn.$inject = ['scope'];
     function linkFn(scope) {
-      angular.extend(scope, {
-        onResizeBlock: function (event, direction) {
-          event.preventDefault();
-          event.stopPropagation();
+      scope.onResizeBlock = onResizeBlock;
 
-          this.resizeStartEvent = event;
-          this.resizeDirection = direction;
-        }
-      });
+      function onResizeBlock(event, direction) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.resizeStartEvent = event;
+        this.resizeDirection = direction;
+      }
     }
   }
