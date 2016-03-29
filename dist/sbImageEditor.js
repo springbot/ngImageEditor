@@ -145,7 +145,23 @@
 
       $scope.$watchCollection('selected', function (selected) {
         if ($scope.dragEvent == null && imgSize) {
+          if (selected.rawInput) {
+            _adjustPixelProportions();
+          }
           overlay.refreshAndRender(img, selected, imgSize);
+
+          function _adjustPixelProportions() {
+            var canvasWidth = overlay.canvas_.width,
+                canvasHeight = overlay.canvas_.height,
+                pixelWidth = selected.width,
+                pixelHeight = selected.height,
+                imgWidth = imgSize.width,
+                imgHeight = imgSize.height;
+
+            selected.width = (pixelWidth / imgWidth) * canvasWidth;
+            selected.height = (pixelHeight / imgHeight) * canvasHeight;
+            selected.rawInput = false;
+          }
         }
       });
 
@@ -201,34 +217,33 @@
         var resizeStartEvent = $scope.resizeStartEvent,
             y = resizeStartEvent.clientY - event.clientY,
             x = resizeStartEvent.clientX - event.clientX,
-            resizeDirection = $scope.resizeDirection,
             selected = $scope.selected,
             lastTop, lastLeft, lastHeight, lastWidth;
 
-        switch (resizeDirection) {
+        switch ($scope.resizeDirection) {
           case 'nw':
-            fixAspect();
+            _fixAspect();
             lastTop = selected.top - y;
             lastLeft = selected.left - x;
             lastWidth = selected.width + x;
             lastHeight = selected.height + y;
             break;
           case 'ne':
-            fixAspect();
+            _fixAspect();
             lastTop = selected.top - y;
             lastLeft = selected.left;
             lastWidth = selected.width - x;
             lastHeight = selected.height + y;
             break;
           case 'sw':
-            fixAspect();
+            _fixAspect();
             lastTop = selected.top;
             lastLeft = selected.left - x;
             lastHeight = selected.height - y;
             lastWidth = selected.width + x;
             break;
           case 'se':
-            fixAspect();
+            _fixAspect();
             lastTop = selected.top;
             lastLeft = selected.left;
             lastWidth = selected.width - x;
@@ -266,7 +281,7 @@
         this.resizeSelected(lastTop, lastLeft, lastWidth, lastHeight);
         $scope.resizeStartEvent = event;
 
-        function fixAspect() {
+        function _fixAspect() {
           if (angular.isDefined($scope.aspectRatio) && $scope.aspectRatio !== '') {
             var changeInX = x < 0 ? x * -1 : x;
             var changeInY = y < 0 ? y * -1 : y;
@@ -412,15 +427,15 @@
 
     linkFn.$inject = ['scope'];
     function linkFn(scope) {
-      angular.extend(scope, {
-        onResizeBlock: function (event, direction) {
-          event.preventDefault();
-          event.stopPropagation();
+      scope.onResizeBlock = onResizeBlock;
 
-          this.resizeStartEvent = event;
-          this.resizeDirection = direction;
-        }
-      });
+      function onResizeBlock(event, direction) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.resizeStartEvent = event;
+        this.resizeDirection = direction;
+      }
     }
   }
 
