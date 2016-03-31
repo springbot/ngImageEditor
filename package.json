@@ -1,6 +1,6 @@
 {
   "name": "sb-image-editor",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "This is a image editor for angular. It can cut image.",
   "main": "dist/sbImageEditor",
   "keywords": [

@@ -4,12 +4,12 @@
   function sbImageEditor($q, $document) {
     return {
       scope: {
-        imgSrc: "=",
-        sbImageEditor: "=",
-        onImgChange: "&",
-        enabledResizeSelector: "=",
-        selected: "=",
-        aspectRatio: "@"
+        imgSrc: '=',
+        sbImageEditor: '=',
+        onImgChange: '&',
+        enabledResizeSelector: '=',
+        selected: '=',
+        aspectRatio: '@'
       },
       template: '<div ng-mouseup="cancel( $event )" unselectable="on">' +
                   '<img unselectable="on" style="opacity:0;user-drag: none;width:100%;height:100%;" crossorigin="Anonymous" ng-src="{{imgSrc}}" ng-mousedown="$event.preventDefault()" />' +
@@ -18,7 +18,6 @@
                 '</div>',
       controller: sbImageEditorCtrl
     };
-
 
     sbImageEditorCtrl.$inject = ['$scope', '$element'];
     function sbImageEditorCtrl($scope, $element) {
@@ -60,11 +59,6 @@
       $scope.$watchCollection('selected', function (selected) {
         if ($scope.dragEvent == null && imgSize) {
           if (selected.rawInput) {
-            _adjustPixelProportions();
-          }
-          overlay.refreshAndRender(img, selected, imgSize);
-
-          function _adjustPixelProportions() {
             var canvasWidth = overlay.canvas_.width,
                 canvasHeight = overlay.canvas_.height,
                 pixelWidth = selected.width,
@@ -76,6 +70,7 @@
             selected.height = (pixelHeight / imgHeight) * canvasHeight;
             selected.rawInput = false;
           }
+          overlay.refreshAndRender(img, selected, imgSize);
         }
       });
 
@@ -287,7 +282,7 @@
             $body = angular.element(document.body);
 
         img.crossOrigin = 'Anonymous';
-        div.style.cssText = "width:0px;height:0px;overflow:hidden;";
+        div.style.cssText = 'width:0px;height:0px;overflow:hidden;';
 
         img.onload = function () {
           var width = img.width,
